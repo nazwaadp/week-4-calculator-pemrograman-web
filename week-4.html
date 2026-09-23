@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>5027251018_Calculator</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    /> <!-- ambil font Poppins dari Google Fonts -->
+
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex; /* flexbox, supaya isi body bisa ditengahkan */
+        align-items: center; /* tengahkan isi secara vertikal */
+        justify-content: center; /* tengahkan isi secara horizontal*/
+        background-color: #ffe0ef; /* warna latar halaman: pink muda */
+        font-family:
+          "Poppins", Arial, sans-serif; /* font utama Poppins, kalau gagal load pakai Arial */
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+
+      .calculator {
+        background-color: #ffffff;
+        border-radius: 12px;
+        padding: 20px; /*jarak*/
+        width: 260px; /*lebar*/
+      }
+
+      #display {
+        width: 100%;
+        height: 55px;
+        font-size: 1.6rem; /* ukuran font di layar */
+        text-align: right; /* teks rata kanan */
+        margin-bottom: 12px; /* jarak antara layar dengan tombol-tombol di bawahnya */
+        border: 1px solid #ffd6ea; /* garis tepi tipis warna pink */
+        border-radius: 8px; /* sudut layar */
+        padding-right: 10px; /* jarak teks dari tepi kanan layar */
+        color: #9e1747; /* warna teks angka*/
+      }
+
+      .buttons {
+        display: grid; /* susun tombol pakai grid */
+        grid-template-columns: repeat(
+          4,
+          1fr
+        ); /* buat 4 kolom dengan lebar sama rata */
+        gap: 10px; /* jarak antar tombol rata */
+      }
+
+      button {
+        padding: 20px 0; /* jarak atas-bawah dalam tombol */
+        font-size: 1.2rem; /* ukuran font di tombol */
+        border: none;
+        border-radius: 8px; /* sudut tombol */
+        background-color: #ffc2e0; /* warna dasar tombol*/
+        cursor: pointer; /* kursor berubah jadi "tangan" saat hover, tanda bisa diklik */
+      }
+
+      .equal {
+        background-color: #ff69b4; /* tombol "=" dikasih warna pink lebih tua/mencolok */
+        color: white; /* teks "=" jadi putih supaya kontras */
+      }
+
+      .clear {
+        background-color: #db3d7c; /* tombol "C" */
+      }
+
+      .nol {
+        grid-column: 2 / 4;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calculator">
+      <input type="text" id="display" />
+
+      <div class="buttons">
+        <!-- Baris 1: hapus semua & operator bagi/kali/kurang -->
+        <button class="clear" onclick="hapusSemua()">C</button>
+        <button onclick="tambahKeLayar('/')">/</button>
+        <button onclick="tambahKeLayar('*')">x</button>
+        <button onclick="tambahKeLayar('-')">-</button>
+
+        <!-- Baris 2: angka 7,8,9 & operator tambah -->
+        <button onclick="tambahKeLayar('7')">7</button>
+        <button onclick="tambahKeLayar('8')">8</button>
+        <button onclick="tambahKeLayar('9')">9</button>
+        <button onclick="tambahKeLayar('+')">+</button>
+
+        <!-- Baris 3: angka 4,5,6 & tombol "=" untuk menghitung -->
+        <button onclick="tambahKeLayar('4')">4</button>
+        <button onclick="tambahKeLayar('5')">5</button>
+        <button onclick="tambahKeLayar('6')">6</button>
+        <button class="equal" onclick="hitung()">=</button>
+
+        <!-- Baris 4: angka 1,2,3 & tombol ⌫ untuk menghapus 1 karakter terakhir-->
+        <button onclick="tambahKeLayar('1')">1</button>
+        <button onclick="tambahKeLayar('2')">2</button>
+        <button onclick="tambahKeLayar('3')">3</button>
+        <button class="hapus" onclick="hapusSatu()">⌫</button>
+
+        <!-- Baris 5: angka 0, class "nol" bikin dia melebar & ada di tengah -->
+        <button onclick="tambahKeLayar('0')" class="nol">0</button>
+      </div>
+    </div>
+
+    <script>
+      //script js nya
+
+      var layar = document.getElementById("display");
+
+      // tiap tombol angka/operator diklik
+      function tambahKeLayar(nilai) {
+        layar.value = layar.value + nilai; //menambahkan karakter baru ke belakang teks yang sudah ada
+      }
+
+      //saat tombol "C" diklik
+      function hapusSemua() {
+        layar.value = ""; // mengganti isi layar dengan string kosong
+      }
+
+      //saat tombol "⌫" diklik
+      function hapusSatu() {
+        layar.value = layar.value.slice(0, -1); // slice(0, -1) memotong teks dari indeks 0 sampai SEBELUM karakter terakhir
+      }
+
+      //saat tombol "=" diklik
+      function hitung() {
+        var hasil = eval(layar.value); // eval() membaca teks di layar sebagai ekspresi matematik
+        layar.value = hasil; //hasil lgsg ganti yg tampil di layar.
+      }
+    </script>
+  </body>
+</html>
